@@ -98,6 +98,15 @@ const getOrElse = <A, B>(a: Option<A>, orElse: () => B) => {
   return a.value;
 };
 
+/**
+ * @description utility function to handle the end of the Optional chain with a callback for the `None` case and one for the `Some` case.
+ * @category Unwrappers
+ */
+const match =
+  <A, A1, B1>(matcher: { onSome: (s: A) => A1; onNone: () => B1 }) =>
+  (o: Option<A>): A1 | B1 =>
+    isNone(o) ? matcher.onNone() : matcher.onSome(o.value);
+
 export {
   Option,
   Some,
@@ -106,6 +115,7 @@ export {
   isSome,
   flatMap,
   map,
+  match,
   getOrElse,
   fromNullable,
 };

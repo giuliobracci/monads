@@ -86,4 +86,13 @@ const flatMap =
     return fn(either.right);
   };
 
-export { Either, Right, Left, isLeft, isRight, map, mapLeft, flatMap };
+/**
+ * @description utility function to handle the end of the Either chain with a callback for the `Left` case and one for the `Right` case.
+ * @category Unwrappers
+ */
+const match =
+  <L, R, L1, R1>(matcher: { onLeft: (l: L) => L1; onRight: (r: R) => R1 }) =>
+  (e: Either<L, R>): L1 | R1 =>
+    isLeft(e) ? matcher.onLeft(e.left) : matcher.onRight(e.right);
+
+export { Either, Right, Left, isLeft, isRight, map, mapLeft, match, flatMap };
