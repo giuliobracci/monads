@@ -1,7 +1,7 @@
 import * as Option from "./option";
 import * as Either from "./either";
 import * as User from "./entities/User";
-import * as Db from "./contexts/db";
+import * as Db from "./contexts/db/index";
 
 import { pipe } from "./utils/pipe";
 

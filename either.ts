@@ -25,25 +25,28 @@ interface Right<R> {
  * @description The `Right<R>` constructor.
  * @category Constructors
  */
-const Right = <R>(v: R): Right<R> => ({
-  _tag: "Right",
-  right: v,
-});
+const Right = <R>(v: R): Right<R> =>
+  ({
+    _tag: "Right",
+    right: v,
+  } as const);
 
 /**
  * @description The `Left<L>` constructor.
  * @category Constructors
  */
-const Left = <L>(v: L): Left<L> => ({
-  _tag: "Left",
-  left: v,
-});
+const Left = <L>(v: L): Left<L> =>
+  ({
+    _tag: "Left",
+    left: v,
+  } as const);
 
 /**
  * @description Predicate to check wheter the current Either is a Right
  * @category Predicates
  */
-const isRight = <L, R>(e: Either<L, R>): e is Right<R> => e._tag === "Right";
+const isRight = <L, R>(e: Either<L, R>): e is Right<R> =>
+  e._tag === "Right";
 
 /**
  * @description Predicate to check wheter the current Either is a Left
@@ -91,8 +94,21 @@ const flatMap =
  * @category Unwrappers
  */
 const match =
-  <L, R, L1, R1>(matcher: { onLeft: (l: L) => L1; onRight: (r: R) => R1 }) =>
+  <L, R, L1, R1>(matcher: {
+    onLeft: (l: L) => L1;
+    onRight: (r: R) => R1;
+  }) =>
   (e: Either<L, R>): L1 | R1 =>
     isLeft(e) ? matcher.onLeft(e.left) : matcher.onRight(e.right);
 
-export { Either, Right, Left, isLeft, isRight, map, mapLeft, match, flatMap };
+export {
+  Either,
+  Right,
+  Left,
+  isLeft,
+  isRight,
+  map,
+  mapLeft,
+  match,
+  flatMap,
+};
